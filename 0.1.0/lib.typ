@@ -368,7 +368,7 @@
   doc
 }
 
-#let notsy(
+#let adversa(
   title: none, 
   topic: none,
   date: false,
@@ -380,7 +380,6 @@
   show: title-style.with(title, topic, date, contents_title)
   show: header-style
   show: latex-style
-  // FIX: Removed "show: style-algorithm" to stop package clash
   show figure.where(kind: "algorithm"): algorithm-style
 
   align(left)[
