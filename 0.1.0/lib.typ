@@ -1,6 +1,5 @@
 #import "@preview/algorithmic:1.0.7": * // Algorithmic library
 
-b
 
 /**
  * Configuration file for that our `lib.typ` file
