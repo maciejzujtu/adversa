@@ -1,6 +1,5 @@
 #import "@preview/algorithmic:1.0.7": * // Algorithmic library
 
-
 /**
  * Configuration file for that our `lib.typ` file
  * uses to render objects such as colors, fonts or
