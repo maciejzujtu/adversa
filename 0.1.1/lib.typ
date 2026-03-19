@@ -22,7 +22,7 @@
   (def, "Def."),
   (thm, "Tw."),
   (lem, "Lem."),
-  (exp, "Np."),
+  (exp, "Przykład."),
   (exr, "Zad."),
   (sol, "Roz."),
   (prf, "Do."),
@@ -41,8 +41,8 @@
   set text(font: FONT, size: SIZE, fill: rgb("#1A1A1A"))
   set par(first-line-indent: INDENT, justify: true)
   set terms(hanging-indent: INDENT)
-  set enum(indent: INDENT, numbering: "1.")
-  set list(indent: 0.25em, marker: [#text(size: 1.1em, [*#sym.tilde*])])
+  set enum(numbering: "1)")
+  set list(indent: 1em, marker: [#text(size: 1.1em, [*#sym.dot*])])
   set document(author: if author != none { author } else { () }, title: title)
   set heading(numbering: "1.")
   set page(fill: rgb("#FDFBF7"), margin: (left: 12%, right: 12%))  
@@ -95,7 +95,7 @@
       sticky: true,
       (
         if it.supplement != auto { smallcaps(text(size: 1.15em, it.supplement + " ")) }
-        + text(size: 1.08em, counter(heading).display())
+        + text(size: 1.05em, counter(heading).display())
         + h(0.5em)
         + emph(text(weight: "thin", it.body))
       )
@@ -109,13 +109,24 @@
       let name = if match != none { match.at(1) } else { "" }
       let prefix = [#name #it.prefix()]
       link(it.element.location())[
-        #text(size: 0.95em, it.indented(none, prefix + h(0.3em) + it.inner()))
+        #text(size: 0.85em, it.indented(none, prefix + h(0.3em) + it.inner()))
       ]
     } 
     else { it }
   }
+  show enum: it => {
+    pad(x: 0.75em)[
+      #it
+    ]
+  }
+  show list: it => {
+    pad(x: -1em)[
+      #it
+    ]
+  }
 
-  page[ // Title page styling
+  // Title page styling
+  page[ 
     #place(horizon + center, dy: -15%)[
       #set par(spacing: 0.7em, leading: 0.2em, justify: false)
       #align(center)[
@@ -145,6 +156,7 @@
   outline(title: outline-title)
   pagebreak()
   
+  // Footer & page size
   set page(
     height: auto,
     footer: context [
@@ -152,7 +164,6 @@
       #place(horizon + right)[#smallcaps(counter(page).display("1/1", both: true))]
     ]
   )
-
   body
 }
 
@@ -171,8 +182,7 @@
   )
 }
 
-
-// Tablef taken from mousse-notes
+// Tablef taken from mousse-notes, will tweak it to my liking soon
 #let tablef(..args) = {
   set table.hline(stroke: 0.5pt)
   table(
@@ -190,7 +200,6 @@
   )
 }
   
-
 // Theorem environment inspired by mousse-notes but remade so it shows up
 // in the contents table as well added few extra visual tweaks.
 #let env(name, color) = {
@@ -206,23 +215,25 @@
     else if pos.len() == 1 {
       body = pos.at(0)
     }
-    v(1em)
-    block(
-      width: 100%,
-      fill: color,
-      radius: 10pt,
-      inset: 12pt,
-      stroke: rgb(color.to-hex().slice(0, 7)).darken(40%),
-      [
-        #heading(level: 3, supplement: name)[#if title != none [#text(size: 1.1em, title)]]
-        #body
-        #v(1em)
-      ]
-    )
-    v(1em)
+    align(center)[
+      #block(
+        width: 110%,
+        fill: color,
+        radius: 10pt,
+        inset: (x: 2.5em, y: 2.5em),
+        stroke: rgb(color.to-hex().slice(0, 7)).darken(40%),
+        align(left)[ 
+          #heading(level: 3, supplement: name)[#if title != none [#text(size: 1.1em, title)]]
+          #place(dy: -0.4em, line(length: 100%, stroke: 0.3pt))
+          #v(1.4em)
+          #indent
+          #body
+        ]
+      )
+      #v(1em)
+    ]
   }
 }
-
 
 #let definition = env(def, rgb("#6a9ace1d"))
 #let theorem = env(thm, rgb("#6aceb71d"))
