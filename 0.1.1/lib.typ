@@ -7,38 +7,12 @@
 #let INDENT = 1.4em       // What's the default indent on paragraphs
 #let CHAPTER = [Rozdział] // How do you want chapter to be called
 
-#let title-page(
-  title: none,
-  subtitle: none,
-  author: none,
-) = {
-  page[
-    #place(horizon + center, dy: -15%, {
-    set par(spacing: 0.7em, leading: 0.2em, justify: false)
-    align(
-      center,
-      text(size: 4em, smallcaps(title), weight: "regular", hyphenate: false)
-        + v(2.5%, weak: true)
-        + if subtitle != none {
-          text(size: 2em, smallcaps(subtitle))
-          v(2.5%, weak: true)
-        },
-    )
-  })
-  #align(bottom + center, text(size: 1.5em, smallcaps(author)))
-  ]
-}
-
-/**
- * The template function that you include
- * into the document at the beginning.
- **/ 
 #let Adversa(
   title: none, 
   author: none,
   subtitle: none,
   outline-title: none,
-  date: datetime.today(),
+  show-date: false,
   body
 ) = {
 
@@ -46,17 +20,11 @@
   set par(first-line-indent: INDENT, justify: true)
   set terms(hanging-indent: INDENT)
   set enum(indent: INDENT, numbering: "1.")
-
-  set page(
-    fill: rgb("#FDFBF7"),
-    margin: (left: 16.3%, right: 16.3%),
-  )  
-
-  set document(
-    author: if author != none { author } else { () }, title: title
-  )
-
+  set document(author: if author != none { author } else { () }, title: title)
   set heading(numbering: "1.")
+  set page(fill: rgb("#FDFBF7"), margin: (left: 16.3%, right: 16.3%))
+  
+
   show heading.where(level: 1): it => {
     pagebreak(weak: true)
     set text(weight: "regular", hyphenate: false)
@@ -75,6 +43,7 @@
         ]
       }
     )
+    v(6em, weak: true)
   }
   show heading.where(level: 2): it => {
     block(
@@ -97,19 +66,62 @@
           )
       )
     )
-    indent
-    v(0.5em, weak: true)
+    v(2em, weak: true)
   }
 
-  title-page(author: author, title: title, subtitle: subtitle)
-  
-  outline(title: outline-title)
 
+  // Title
+  page[
+    #place(horizon + center, dy: -15%)[
+      #set par(spacing: 0.7em, leading: 0.2em, justify: false)
+      #align(center)[
+        #if title != none [
+          #text(size: 4em, smallcaps(title), weight: "regular", hyphenate: false)
+          #v(2.5%, weak: true)
+        ]
+        #if subtitle != none [
+          #text(size: 2em, smallcaps(subtitle))
+          #v(2.5%, weak: true)
+        ]
+      ]
+    ]
+    
+    #if author != none [
+      #align(bottom + center, text(size: 1.5em, smallcaps(author)))
+    ]
+
+    #if show-date == true [
+      #align(bottom+center, text(size: 1.2em)[
+        #smallcaps(datetime.today().display("[day] [month repr:long] [year]"))
+      ])
+    ]
+    
+  ]
+  
+  // Contents
+  outline(title: outline-title)
   pagebreak()
 
-  
+  set page(
+    height: auto,
+    footer: [
+      #v(2em)
+      #align(
+        center, smallcaps(
+          text(size: 0.75em, 
+            title
+          )
+        )
+      )
+    ]
+  )
+
+
+
   body
 }
+
+
 
 #let tablef(..args) = {
   set table.hline(stroke: 0.5pt)
