@@ -8,26 +8,15 @@
 #let SIZE   = 12pt        
 #let INDENT = 1.4em
 
-#let chapter = [Rozdział]
-#let def = [Definicja]
-#let thm = [Twierdzenie]
-#let lem = [Lemat]
-#let exp = [Przykład]
-#let exr = [Zadanie]
-#let sol = [Rozwiązanie]
-#let prf = [Dowód]
-#let rmk = [Uwaga]
-
-#let ABBREVIATIONS = (
-  (def, "Def."),
-  (thm, "Tw."),
-  (lem, "Lem."),
-  (exp, "Przykład."),
-  (exr, "Zad."),
-  (sol, "Roz."),
-  (prf, "Do."),
-  (rmk, "Uw.")
-)
+#let chapter = [Chapter]
+#let def = [Definition]
+#let thm = [Theorem]
+#let lem = [Lemma]
+#let exp = [Example]
+#let exr = [Exercise]
+#let sol = [Solution]
+#let prf = [Proof]
+#let rmk = [Remark]
 
 #let Adversa(
   title: none, 
@@ -44,7 +33,7 @@
   set enum(numbering: "1)")
   set list(indent: 1em, marker: [#text(size: 1.1em, [*#sym.dot*])])
   set document(author: if author != none { author } else { () }, title: title)
-  set heading(numbering: "1.")
+  set heading(numbering: "1.", supplement: none)
   set page(fill: rgb("#FDFBF7"), margin: (left: 12%, right: 12%))  
 
   show heading.where(level: 1): it => {
@@ -105,11 +94,15 @@
   show outline.entry.where(level: 3): it => {
     let supplement = it.element.supplement
     if supplement != auto {
-      let match = ABBREVIATIONS.find(pair => pair.at(0) == supplement)
-      let name = if match != none { match.at(1) } else { "" }
-      let prefix = [#name #it.prefix()]
+      let prefix = [#it.prefix() #supplement]
       link(it.element.location())[
-        #text(size: 0.85em, it.indented(none, prefix + h(0.3em) + it.inner()))
+        #text(
+          size: 0.85em, 
+          it.indented(
+            none, 
+            prefix + h(0.3em) + 
+            it.inner())
+          )
       ]
     } 
     else { it }
@@ -153,7 +146,17 @@
   ]
   
   // Contents
-  outline(title: outline-title)
+  {
+    show heading.where(level: 1): it => {
+      block(
+        above: 2em,
+        below: 1em,
+        text(size: 1.5em, spacing: 0.5em, smallcaps(it.body))
+      )
+    }
+    outline(title: outline-title)
+  }
+
   pagebreak()
   
   // Footer & page size
@@ -217,7 +220,7 @@
     }
     align(center)[
       #block(
-        width: 110%,
+        width: 102%,
         fill: color,
         radius: 10pt,
         inset: (x: 2.5em, y: 2.5em),
