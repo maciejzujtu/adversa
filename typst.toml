@@ -12,5 +12,5 @@ compiler = "0.14.2"
 
 [template]
 path = "templates"
-entrypoint = "main.typ"
+entrypoint = "demo.typ"
 thumbnail = "preview.png"

@@ -226,7 +226,6 @@
           #heading(level: 3, supplement: name)[#if title != none [#text(size: 1.1em, title)]]
           #place(dy: -0.4em, line(length: 100%, stroke: 0.3pt))
           #v(1.4em)
-          #indent
           #body
         ]
       )
