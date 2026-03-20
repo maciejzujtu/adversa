@@ -1,5 +1,3 @@
-#import "@preview/algorithmic:1.0.7": *
-#import "@preview/minimal-note:0.10.0": *
 #import "@preview/mousse-notes:1.0.0": *
 #import "@preview/codly:1.3.0": *
 #import "@preview/codly-languages:0.1.1": *
