@@ -1,7 +1,0 @@
-[package]
-name = "adversa"
-version = "0.1.1"
-entrypoint = "lib.typ"
-authors = ["maciejzujtu"]
-license = "MIT"
-description = "Basic Typst template for creating fancy notes"
