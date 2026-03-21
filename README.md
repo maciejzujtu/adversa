@@ -4,7 +4,7 @@
 
 _dummy page preview_
 
-![demo](docs/preview.png)
+![dummy thumbnail page](thumbnail-page.svg)
 
 ## Installation
 To start using the template, you must first install it locally to your `typst/packages/local/` directory. To make this process as seamless as possible you can use [typship](https://github.com/sjfhsjfh/typship) tool for typst package management and run the following command in your CLI.
@@ -49,7 +49,7 @@ After including the following rules as well as imports the title page will look 
 
 _dummy title preview_
 
-![demo](docs/title.png)
+![dummy thumbnail title](thumbnail-title.svg)
 
 ## Further implementations
 
