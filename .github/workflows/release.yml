@@ -23,7 +23,7 @@ env:
 jobs:
   build:
     name: Build
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     outputs:
       pkg-name: ${{ env.PKG_NAME }}
       pkg-version: ${{ env.PKG_VERSION }}
@@ -90,7 +90,7 @@ jobs:
   publish:
     name: Publish to a registry fork
     needs: build
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     steps:
       - name: Checkout package registry
