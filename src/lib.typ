@@ -231,11 +231,7 @@
                 0
               }
 
-              #if heading-level != 2 {
-                return;
-              } 
-              
-              #else [
+              #if heading-level == 3 [
                 #heading(level: 3, supplement: name)[#text(size: 1.1em, title)] 
                 #line(length: 100%, stroke: 0.3pt)
               ]
