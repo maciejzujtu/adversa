@@ -232,11 +232,13 @@
               }
 
               #if heading-level != 2 {
-                panic("Structural Error: The '" + name + "' environment must be placed under a Level 3 heading. It is currently under a Level " + str(heading-level) + " heading.")
-              }
-
-              #heading(level: 3, supplement: name)[#text(size: 1.1em, title)] 
-              #line(length: 100%, stroke: 0.3pt)
+                return;
+              } 
+              
+              #else [
+                #heading(level: 3, supplement: name)[#text(size: 1.1em, title)] 
+                #line(length: 100%, stroke: 0.3pt)
+              ]
             ]
           ]
 
